@@ -1,8 +1,8 @@
 from django.db import models
 
 
-def get_category_image_alt(obj: 'CategoryImage') -> str:
-    return f'{obj.category.get().title} image'
+def get_category_image_alt(obj: "CategoryImage") -> str:
+    return f"{obj.category.get().title} image"
 
 
 class CategoryImage(models.Model):

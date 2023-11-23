@@ -4,15 +4,16 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('catalog', '0003_alter_categoryimage_src'),
+        ("catalog", "0003_alter_categoryimage_src"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='categoryimage',
-            name='src',
-            field=models.ImageField(upload_to='categories/images/', verbose_name='Ссылка'),
+            model_name="categoryimage",
+            name="src",
+            field=models.ImageField(
+                upload_to="categories/images/", verbose_name="Ссылка"
+            ),
         ),
     ]

@@ -13,9 +13,11 @@ class ProductDetailView(RetrieveAPIView):
     serializer_class = ProductSerializer
 
     def get_queryset(self):
-        return Product.objects.all()\
-                .annotate(rating=Avg('reviews__rate'))\
-                .prefetch_related('reviews__author')
+        return (
+            Product.objects.all()
+            .annotate(rating=Avg("reviews__rate"))
+            .prefetch_related("reviews__author")
+        )
 
 
 class CreateReviewView(CreateAPIView):

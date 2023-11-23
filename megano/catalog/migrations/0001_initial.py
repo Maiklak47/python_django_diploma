@@ -6,27 +6,64 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='CategoryImage',
+            name="CategoryImage",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('src', models.ImageField(upload_to='categories/images/', verbose_name='Ссылка')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "src",
+                    models.ImageField(
+                        upload_to="categories/images/", verbose_name="Ссылка"
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=100)),
-                ('image', models.ForeignKey(default=catalog.models.CategoryImage.get_default_pk, on_delete=django.db.models.deletion.CASCADE, related_name='category', to='catalog.categoryimage', verbose_name='Изображение')),
-                ('parent', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='children', to='catalog.category')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=100)),
+                (
+                    "image",
+                    models.ForeignKey(
+                        default=catalog.models.CategoryImage.get_default_pk,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="category",
+                        to="catalog.categoryimage",
+                        verbose_name="Изображение",
+                    ),
+                ),
+                (
+                    "parent",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="children",
+                        to="catalog.category",
+                    ),
+                ),
             ],
         ),
     ]

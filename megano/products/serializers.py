@@ -24,8 +24,8 @@ class TagSerializer(serializers.ModelSerializer):
 class ReviewSerializer(serializers.ModelSerializer):
     """Serializer for product review"""
 
-    author = serializers.CharField(source='author.fullName')
-    email = serializers.CharField(source='author.email')
+    author = serializers.CharField(source="author.fullName")
+    email = serializers.CharField(source="author.email")
 
     class Meta:
         model = Review
@@ -99,7 +99,6 @@ class ProductSerializer(serializers.ModelSerializer):
 
         images_data = [ProductImageSerializer(image).data for image in images]
         return images_data
-
 
 
 class SalesSerializer(serializers.ModelSerializer):

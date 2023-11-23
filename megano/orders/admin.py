@@ -27,7 +27,6 @@ class OrderAdmin(admin.ModelAdmin):
     search_fields = ["profile"]
 
     def get_queryset(self, request):
-        return Order.objects.select_related('profile')\
-            # .select_related('status_id')\
-            # .select_related('deliveryType_id')\
-            # .select_related('paymentType_id')\
+        return Order.objects.select_related("profile")  # .select_related('status_id')\
+        # .select_related('deliveryType_id')\
+        # .select_related('paymentType_id')\
