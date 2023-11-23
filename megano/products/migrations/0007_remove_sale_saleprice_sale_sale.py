@@ -4,19 +4,18 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0006_product_sort_index_alter_product_tags'),
+        ("products", "0006_product_sort_index_alter_product_tags"),
     ]
 
     operations = [
         migrations.RemoveField(
-            model_name='sale',
-            name='salePrice',
+            model_name="sale",
+            name="salePrice",
         ),
         migrations.AddField(
-            model_name='sale',
-            name='sale',
+            model_name="sale",
+            name="sale",
             field=models.PositiveIntegerField(default=0),
         ),
     ]

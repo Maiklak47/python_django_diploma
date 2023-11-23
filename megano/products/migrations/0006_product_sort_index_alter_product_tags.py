@@ -4,20 +4,21 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0005_remove_product_is_banned'),
+        ("products", "0005_remove_product_is_banned"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='sort_index',
+            model_name="product",
+            name="sort_index",
             field=models.PositiveIntegerField(default=0),
         ),
         migrations.AlterField(
-            model_name='product',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='products', to='products.tag'),
+            model_name="product",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, related_name="products", to="products.tag"
+            ),
         ),
     ]

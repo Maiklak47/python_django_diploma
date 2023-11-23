@@ -52,7 +52,6 @@ class Product(models.Model):
 
         return self.images.all() or [ProductImage.get_default()]
 
-
     def __str__(self) -> str:
         return self.title
 

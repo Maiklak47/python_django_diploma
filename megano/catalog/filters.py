@@ -12,8 +12,8 @@ class CatalogProductsOrderingFilter(filters.OrderingFilter):
         sort_param = request.GET.get("sort")
         sort_type = request.GET.get("sortType")
         sort_symbol = "-" if sort_type == "dec" else ""
-        if sort_param == 'reviews':
-            sort_param = 'count_reviews'
+        if sort_param == "reviews":
+            sort_param = "count_reviews"
 
         return queryset.order_by(sort_symbol + sort_param)
 
@@ -27,7 +27,9 @@ class CatalogProductsOrderingFilter(filters.OrderingFilter):
             "title__contains": data.get("filter[name]") or None,
             "price__gte": int(data.get("filter[minPrice]")),
             "price__lte": int(data.get("filter[maxPrice]")) or None,
-            "freeDelivery": True if data.get("filter[freeDelivery]") == "true" else None,
+            "freeDelivery": True
+            if data.get("filter[freeDelivery]") == "true"
+            else None,
             "count__gte": 1 if data.get("filter[available]") == "true" else None,
         }
         actual_params = {k: v for k, v in params.items() if v is not None}

@@ -43,7 +43,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class CatalogSerializer(ProductSerializer):
     """Serializer for product item in catalog"""
 
-    reviews = serializers.IntegerField(source='count_reviews')
+    reviews = serializers.IntegerField(source="count_reviews")
     tags = TagSerializer(many=True)
 
     class Meta:
@@ -56,9 +56,11 @@ class CatalogSerializer(ProductSerializer):
 class SaleSerializer(serializers.ModelSerializer):
     """Serializer for instance of Sale"""
 
-    id = serializers.IntegerField(source='product.id')
-    price = serializers.DecimalField(source='product.price', max_digits=10, decimal_places=2)
-    title = serializers.CharField(source='product.title')
+    id = serializers.IntegerField(source="product.id")
+    price = serializers.DecimalField(
+        source="product.price", max_digits=10, decimal_places=2
+    )
+    title = serializers.CharField(source="product.title")
     images = serializers.SerializerMethodField()
 
     class Meta:

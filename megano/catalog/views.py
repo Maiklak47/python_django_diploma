@@ -16,11 +16,12 @@ from catalog.serializers import TagSerializer
 class CategoriesListView(ListAPIView):
     """View for a list of products categories"""
 
-    queryset = Category.objects\
-        .filter(parent__isnull=True)\
-        .all()\
-        .select_related('image')\
-        .prefetch_related('children__image')
+    queryset = (
+        Category.objects.filter(parent__isnull=True)
+        .all()
+        .select_related("image")
+        .prefetch_related("children__image")
+    )
     serializer_class = CategorySerializer
 
 
@@ -38,11 +39,12 @@ class BaseCatalogListView(ListAPIView):
     serializer_class = CatalogSerializer
 
     def get_queryset(self):
-        return Product.objects.all() \
-        .annotate(rating=Avg('reviews__rate'),
-                  count_reviews=Count('reviews')) \
-        .prefetch_related('tags') \
-        .prefetch_related('images')
+        return (
+            Product.objects.all()
+            .annotate(rating=Avg("reviews__rate"), count_reviews=Count("reviews"))
+            .prefetch_related("tags")
+            .prefetch_related("images")
+        )
 
 
 class CatalogListView(BaseCatalogListView):
@@ -52,7 +54,10 @@ class CatalogListView(BaseCatalogListView):
     filter_backends = [CatalogProductsOrderingFilter]
 
     def filter_queryset(self, queryset):
-        return CatalogProductsOrderingFilter().filter_queryset(self.request, queryset, self)
+        return CatalogProductsOrderingFilter().filter_queryset(
+            self.request, queryset, self
+        )
+
 
 class PopularProductsListView(BaseCatalogListView):
     """View for a list of popular products"""
@@ -60,7 +65,7 @@ class PopularProductsListView(BaseCatalogListView):
     # filter_backends = [PopularProductsOrderingFilter]
 
     def filter_queryset(self, queryset):
-        return queryset.order_by('sort_index')[:8]
+        return queryset.order_by("sort_index")[:8]
 
 
 class LimitedProductsListView(BaseCatalogListView):
@@ -74,14 +79,14 @@ class BannersListView(BaseCatalogListView):
     """View for a list of banner products"""
 
     def filter_queryset(self, queryset):
-        return queryset.order_by('?')[:5]
+        return queryset.order_by("?")[:5]
 
 
 class SalesListView(ListAPIView):
     """View for a list of products sales"""
 
-    queryset = Sale.objects.all()\
-        .select_related('product')\
-        .prefetch_related('product__images')
+    queryset = (
+        Sale.objects.all().select_related("product").prefetch_related("product__images")
+    )
     serializer_class = SaleSerializer
     pagination_class = CustomPagination

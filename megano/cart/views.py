@@ -14,13 +14,17 @@ class CartApiView(APIView):
 
     def get(self, request: Request) -> Response:
         cart = Cart(request)
-        queryset = Product.objects.all() \
-            .filter(pk__in=cart.cart.keys()) \
-            .annotate(rating=Avg('reviews__rate'),
-                      count_reviews=Count('reviews'),
-                      max_sale=Max('sales__sale')) \
-            .prefetch_related('tags') \
-            .prefetch_related('images')
+        queryset = (
+            Product.objects.all()
+            .filter(pk__in=cart.cart.keys())
+            .annotate(
+                rating=Avg("reviews__rate"),
+                count_reviews=Count("reviews"),
+                max_sale=Max("sales__sale"),
+            )
+            .prefetch_related("tags")
+            .prefetch_related("images")
+        )
         serializer = CartSerializer(queryset, many=True, context={"cart": cart.cart})
         return Response(serializer.data, status=status.HTTP_200_OK)
 
@@ -31,7 +35,7 @@ class CartApiView(APIView):
                 product_id=request.data.get("id"),
                 count=int(request.data.get("count")),
             )
-            print('')
+            print("")
         except ValueError as e:
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
         data = self.get(request).data

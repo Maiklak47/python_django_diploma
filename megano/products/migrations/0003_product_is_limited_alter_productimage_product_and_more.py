@@ -5,23 +5,27 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
-        ('products', '0002_tovar'),
+        ("products", "0002_tovar"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='product',
-            name='is_limited',
+            model_name="product",
+            name="is_limited",
             field=models.BooleanField(default=False),
         ),
         migrations.AlterField(
-            model_name='productimage',
-            name='product',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, related_name='images', to='products.product'),
+            model_name="productimage",
+            name="product",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="images",
+                to="products.product",
+            ),
         ),
         migrations.DeleteModel(
-            name='Tovar',
+            name="Tovar",
         ),
     ]

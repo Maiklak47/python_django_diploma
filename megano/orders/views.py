@@ -24,12 +24,14 @@ class OrdersAPIView(APIView):
 
     def get(self, request: Request) -> Response:
         profile = request.user.profile
-        queryset = Order.objects.filter(profile=profile)\
-            .prefetch_related('products')\
-            .select_related('profile')\
-            .select_related('deliveryType_id')\
-            .select_related('paymentType_id')\
-            .select_related('status_id')
+        queryset = (
+            Order.objects.filter(profile=profile)
+            .prefetch_related("products")
+            .select_related("profile")
+            .select_related("deliveryType_id")
+            .select_related("paymentType_id")
+            .select_related("status_id")
+        )
         serializer = OrderSerializer(queryset, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 

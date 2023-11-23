@@ -61,7 +61,7 @@ class Cart:
 
     def get_total_cost(self) -> float:
         summ = sum(
-                Decimal(item.get("price")) * item.get("count")
-                for item in self.cart.values()
-            )
+            Decimal(item.get("price")) * item.get("count")
+            for item in self.cart.values()
+        )
         return round(float(summ), 2)

@@ -10,9 +10,9 @@ from products.models import Product
 class OrderSerializer(serializers.ModelSerializer):
     """Serializer for get order info"""
 
-    fullName = serializers.CharField(source='profile.fullName')
-    phone = serializers.CharField(source='profile.phone')
-    email = serializers.CharField(source='profile.email')
+    fullName = serializers.CharField(source="profile.fullName")
+    phone = serializers.CharField(source="profile.phone")
+    email = serializers.CharField(source="profile.email")
     products = serializers.SerializerMethodField()
 
     class Meta:
@@ -37,14 +37,13 @@ class OrderSerializer(serializers.ModelSerializer):
             relation.product.pk: relation.count
             for relation in obj.orderproducts_set.all()
         }
-        queryset = obj.products.all()\
-            .annotate(rating=Avg('reviews__rate'),
-                      count_reviews=Count('reviews'))\
-            .prefetch_related('tags')\
-            .prefetch_related('images')
-        serializer = CartSerializer(
-            queryset, many=True, context=product_counts
+        queryset = (
+            obj.products.all()
+            .annotate(rating=Avg("reviews__rate"), count_reviews=Count("reviews"))
+            .prefetch_related("tags")
+            .prefetch_related("images")
         )
+        serializer = CartSerializer(queryset, many=True, context=product_counts)
         return serializer.data
 
 

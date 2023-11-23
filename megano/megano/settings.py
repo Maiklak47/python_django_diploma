@@ -37,20 +37,19 @@ SECRET_KEY = "django-insecure-c_8ioe%$eo62^jvs-yx2^k1%4mxd3a%27s0f9c)p2)g8c(&28o
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    "0.0.0.0",
     "127.0.0.1",
     "localhost",
-    "0.0.0.0",
 ]
 INTERNAL_IPS = ["127.0.0.1"]
 
 
 if DEBUG:
     import socket
+
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS.append('10.0.2.2')
-    INTERNAL_IPS.extend(
-        [ip[: ip.rfind(".")] + '.1' for ip in ips]
-    )
+    INTERNAL_IPS.append("10.0.2.2")
+    INTERNAL_IPS.extend([ip[: ip.rfind(".")] + ".1" for ip in ips])
 
 
 # Application definition
@@ -62,12 +61,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "frontend",
     "rest_framework",
     "django_filters",
     "debug_toolbar",
-
     "accounts.apps.AccountsConfig",
     "catalog.apps.CatalogConfig",
     "products.apps.ProductsConfig",
